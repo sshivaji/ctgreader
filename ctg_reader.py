@@ -4,6 +4,7 @@ import argparse
 import os
 import re
 import subprocess
+import json
 
 PGN_HEADERS_REGEX = re.compile(r"\[([A-Za-z0-9_]+)\s+\"(.*)\"\]")
 
@@ -28,7 +29,7 @@ class CTGReader:
             raise NameError("Unknown CTG DB, first open a CTG file")
         cmd = "'{}' '{}'".format(self.book, fen)
         p = subprocess.Popen([self.engine, self.book, fen], stdout=subprocess.PIPE)
-        return p.stdout.read().decode()
+        return json.loads(p.stdout.read().decode())
 
 def process_arg():
     parser = argparse.ArgumentParser()
