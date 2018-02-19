@@ -1,15 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-import codecs
-import json
 import os
-import pexpect
 import re
-from pexpect.popen_spawn import PopenSpawn
-from pexpect import spawn
 import subprocess
-
 
 PGN_HEADERS_REGEX = re.compile(r"\[([A-Za-z0-9_]+)\s+\"(.*)\"\]")
 
@@ -20,10 +14,6 @@ class CTGReader:
             engine = './ctg_reader'
         self.engine = engine
         self.book = ''
-
-    def wait_ready(self):
-        self.p.sendline('isready')
-        # self.p.expect(u'readyok')
 
     def open(self, book):
         '''Open a CTG file'''
