@@ -27,10 +27,8 @@ class CTGReader:
         if not self.book:
             raise NameError("Unknown CTG DB, first open a CTG file")
         cmd = "'{}' '{}'".format(self.book, fen)
-        # print(cmd)
         p = subprocess.Popen([self.engine, self.book, fen], stdout=subprocess.PIPE)
-
-        return(p.stdout.read())
+        return p.stdout.read().decode()
 
 def process_arg():
     parser = argparse.ArgumentParser()
@@ -46,7 +44,6 @@ if __name__ == '__main__':
     # print(settings)
     if settings['file']:
         c.open(settings['file'])
-        print(c.find(settings['fen']).decode())
+        print(c.find(settings['fen']))
     else:
         print('--file is required')
-
